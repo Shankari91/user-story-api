@@ -1,6 +1,7 @@
 package com.archymides.userstory.controllers;
 
-import com.archymides.userstory.models.User;
+import com.archymides.userstory.dtos.UserDto;
+import com.archymides.userstory.services.AuthorizationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -9,14 +10,15 @@ import javax.validation.Valid;
 
 @RestController
 @Validated
-public class LoginController {
+public class AuthorizationController {
 
     @Autowired
-    private UserService userService;
+    private AuthorizationService authorizationService;
 
-     @ResponseStatus(HttpStatus.OK)
-     public void registerUser(@Valid  @RequestBody User user) {
-         userService.saveUser(user);
+     @RequestMapping(value = "/users", method = RequestMethod.POST, consumes = "application/json")
+     @ResponseStatus(HttpStatus.CREATED)
+     public void registerUser(@Valid @RequestBody UserDto userDto) {
+         authorizationService.registerUser(userDto);
      }
 
 }
