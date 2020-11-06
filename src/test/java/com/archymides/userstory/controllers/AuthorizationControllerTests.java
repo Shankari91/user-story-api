@@ -10,8 +10,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 public class AuthorizationControllerTests {
@@ -31,7 +30,7 @@ public class AuthorizationControllerTests {
     @Test
     public void shouldCallAuthorisationServiceForRegistering(){
 
-        UserDto userDto = new UserDto();
+        UserDto userDto = mock(UserDto.class);
         doNothing().when(authorizationService).registerUser(userDto);
         authorizationController.registerUser(userDto);
         verify(authorizationService).registerUser(userDto);
