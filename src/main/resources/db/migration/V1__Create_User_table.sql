@@ -7,3 +7,7 @@ CREATE TABLE users
   password   VARCHAR(100) NOT NULL,
   role       ENUM ('ADMIN', 'USER')  NOT NULL
 );
+
+
+ALTER TABLE users
+  ADD CONSTRAINT UQ_USERS_EMAIL UNIQUE (email);
