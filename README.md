@@ -10,6 +10,7 @@
   create database user_stories;
 - If intellij is used install lombok, enable lombok annotation processing
     Preferences -> lombok plugin -> enable lombok plugin
+  Copy application.properties.cfg to application.properties and set the properties
 
 ## Swagger Api docs
 
