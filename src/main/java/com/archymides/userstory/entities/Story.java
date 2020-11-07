@@ -13,6 +13,7 @@ import javax.persistence.*;
 @Entity(name = "stories")
 @NoArgsConstructor
 @Getter
+@Setter
 public class Story {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,4 +41,5 @@ public class Story {
         this.cost = storyDto.getCost();
         this.status = StoryStatus.NEW;
     }
+
 }

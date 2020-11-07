@@ -7,11 +7,13 @@ import com.archymides.userstory.enums.StoryType;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 
 @Getter
+@Setter
 @NoArgsConstructor
 public class StoryDto {
     @NotBlank(message = "Summary is mandatory")

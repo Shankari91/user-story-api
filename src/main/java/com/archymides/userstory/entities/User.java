@@ -5,11 +5,13 @@ import com.archymides.userstory.enums.Role;
 import com.archymides.userstory.dtos.UserDto;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 
 @Entity(name = "USERS")
 @Getter
+@Setter
 @NoArgsConstructor
 public class User {
     @Id
