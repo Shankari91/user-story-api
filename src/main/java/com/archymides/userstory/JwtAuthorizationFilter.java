@@ -23,8 +23,6 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
     private static final String HEADER_STRING = "Authorization";
     private static final String TOKEN_PREFIX = "Bearer ";
     private final JwtService jwtService;
-//    @Value("${jwt.secret}")
-//    private String jwtSecret;
 
     public JwtAuthorizationFilter(AuthenticationManager authManager, JwtService jwtService) {
         super(authManager);

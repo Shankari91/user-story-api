@@ -6,12 +6,10 @@ import com.archymides.userstory.dtos.UserLoginDto;
 import com.archymides.userstory.services.AuthorizationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.*;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.security.Principal;
 
 @RestController
 @Validated
@@ -30,14 +28,6 @@ public class AuthorizationController {
     @ResponseStatus(HttpStatus.OK)
     public UserLoginDto login(@Valid @RequestBody LoginDto loginDto) {
         return authorizationService.handleLogin(loginDto);
-    }
-
-    @RequestMapping(value = "/name", method = RequestMethod.GET)
-    public String getName(Authentication authentication, Principal principal) {
-        System.out.println(authentication.getName());
-        System.out.println("-----------------");
-        System.out.println(principal.getName());
-        return principal.getName();
     }
 
 }

@@ -19,6 +19,7 @@
 
 - Request fields validations are done using javax.validation framework
 
+
 ## Database migrations
 
 - Flyway is used to manage db migration. It runs automatically on app startup

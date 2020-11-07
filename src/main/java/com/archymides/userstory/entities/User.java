@@ -30,4 +30,8 @@ public class User {
         this.role = userDto.getRole();
         this.password = BCrypt.withDefaults().hashToString(12, userDto.getPassword().toCharArray());
     }
+
+    public boolean isAdmin() {
+        return role == Role.ADMIN;
+    }
 }
