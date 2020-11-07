@@ -7,7 +7,7 @@ import com.archymides.userstory.dtos.LoginDto;
 import com.archymides.userstory.dtos.UserDto;
 import com.archymides.userstory.dtos.UserLoginDto;
 import com.archymides.userstory.entities.User;
-import com.archymides.userstory.enums.StoryStatus;
+import com.archymides.userstory.mappers.ModelMapperService;
 import com.archymides.userstory.repositories.UserRepository;
 import org.junit.Before;
 import org.junit.Test;
@@ -32,6 +32,9 @@ public class AuthorizationServiceTests {
     @Mock
     private UserRepository userRepository;
 
+    @Mock
+    private ModelMapperService modelMapperService;
+
     @InjectMocks
     private AuthorizationService authorizationService;
 
@@ -45,25 +48,19 @@ public class AuthorizationServiceTests {
     public void shouldSaveUserObjectToRepository() {
 
         UserDto userDto = new UserDto();
-        userDto.setFirstName("first");
-        userDto.setLastName("last");
-        userDto.setEmail("last@last");
-        userDto.setPassword("test");
-        when(userRepository.save(any(User.class))).thenReturn(new User());
+        User mappedUser = new User();
+        when(modelMapperService.map(userDto)).thenReturn(mappedUser);
+        when(userRepository.save(mappedUser)).thenReturn(new User());
         ArgumentCaptor<User> argument = ArgumentCaptor.forClass(User.class);
 
         authorizationService.registerUser(userDto);
 
-        verify(userRepository).save(argument.capture());
-        User user = argument.getValue();
-        assertEquals("first", user.getFirstName());
-        assertEquals("last", user.getLastName());
-        assertEquals("last@last", user.getEmail());
+        verify(userRepository).save(mappedUser);
     }
 
     @Test
     public void shouldGetUserFromRepository() {
-        Long userId =1L;
+        Long userId = 1L;
         when(userRepository.findById(userId)).thenReturn(Optional.of(new User()));
 
         authorizationService.getUser(userId);
@@ -78,15 +75,17 @@ public class AuthorizationServiceTests {
         loginDto.setEmail(email);
         loginDto.setPassword("test");
         User user = new User();
-        user.setPassword(BCrypt.withDefaults().hashToString(12,"test".toCharArray()));
-        when(userRepository.findByemail(email)).thenReturn(user);
         String token = "token";
+        user.setPassword(BCrypt.withDefaults().hashToString(12, "test".toCharArray()));
+        when(userRepository.findByemail(email)).thenReturn(user);
+        UserLoginDto mappedLoginDto = new UserLoginDto();
+        when(modelMapperService.map(user, token)).thenReturn(mappedLoginDto);
         when(jwtService.generateJwtToken(user)).thenReturn(token);
 
         UserLoginDto userLoginDto = authorizationService.handleLogin(loginDto);
 
         verify(userRepository).findByemail(email);
-        assertEquals(userLoginDto.getToken(), token);
+        assertEquals(userLoginDto, mappedLoginDto);
     }
 
     @Test(expected = UnauthorizedException.class)

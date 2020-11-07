@@ -33,13 +33,4 @@ public class Story {
     @Setter
     private StoryStatus status;
 
-    public Story(StoryDto storyDto) {
-        this.summary = storyDto.getSummary();
-        this.description = storyDto.getDescription();
-        this.type = storyDto.getType();
-        this.complexity = storyDto.getComplexity();
-        this.cost = storyDto.getCost();
-        this.status = StoryStatus.NEW;
-    }
-
 }

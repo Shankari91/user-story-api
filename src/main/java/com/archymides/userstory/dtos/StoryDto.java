@@ -28,14 +28,4 @@ public class StoryDto {
     private Long id;
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private StoryStatus status;
-
-    public StoryDto(Story story) {
-        this.summary = story.getSummary();
-        this.description = story.getDescription();
-        this.type = story.getType();
-        this.complexity = story.getComplexity();
-        this.cost = story.getCost();
-        this.id = story.getId();
-        this.status = story.getStatus();
-    }
 }

@@ -1,16 +1,11 @@
 package com.archymides.userstory.dtos;
 
-import com.archymides.userstory.entities.User;
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
+@Setter
 public class UserLoginDto extends UserDto {
     private String token;
     private Long id;
-
-    public UserLoginDto(User user, String token) {
-        super(user);
-        this.id = user.getId();
-        this.token = token;
-    }
 }

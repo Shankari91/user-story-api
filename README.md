@@ -11,6 +11,7 @@
 - If intellij is used install lombok, enable lombok annotation processing
     Preferences -> lombok plugin -> enable lombok plugin
   Copy application.properties.cfg to application.properties and set the properties
+  Make sure jwt.secret is a very long string of more than 256 bytes.
 
 ## Swagger Api docs
 

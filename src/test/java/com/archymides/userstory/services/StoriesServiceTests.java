@@ -11,6 +11,7 @@ import com.archymides.userstory.entities.Story;
 import com.archymides.userstory.entities.User;
 import com.archymides.userstory.enums.Role;
 import com.archymides.userstory.enums.StoryStatus;
+import com.archymides.userstory.mappers.ModelMapperService;
 import com.archymides.userstory.repositories.StoryRepository;
 import com.archymides.userstory.repositories.UserRepository;
 import org.junit.Before;
@@ -20,6 +21,7 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.Collections;
@@ -37,6 +39,9 @@ public class StoriesServiceTests {
 
     @Mock
     private StoryRepository storyRepository;
+
+    @Mock
+    private ModelMapperService modelMapperService;
 
     @InjectMocks
     private StoriesService storiesService;
@@ -57,13 +62,15 @@ public class StoriesServiceTests {
         when(storyRepository.save(any(Story.class))).thenReturn(new Story());
         User user = new User();
         when(authorizationService.getUser(Long.valueOf(userId))).thenReturn(Optional.of(user));
+        Story mappedStory = new Story();
+        when(modelMapperService.map(storyDto)).thenReturn(mappedStory);
         ArgumentCaptor<Story> argument = ArgumentCaptor.forClass(Story.class);
 
         storiesService.createStory(storyDto, userId);
 
         verify(storyRepository).save(argument.capture());
         Story story = argument.getValue();
-        assertEquals("summary", story.getSummary());
+        assertEquals(mappedStory, story);
         assertEquals(user, story.getUser());
     }
 
@@ -82,10 +89,11 @@ public class StoriesServiceTests {
     public void shouldGetStoriesOfUserForNonAdmin() {
 
         Story story = new Story();
-        story.setSummary("summary");
         String userId = "1";
 
         List<Story> stories = Collections.singletonList(story);
+        StoryDto mappedStory = new StoryDto();
+        when(modelMapperService.map(story)).thenReturn(mappedStory);
         when(storyRepository.findByuserId(Long.valueOf(userId))).thenReturn(stories);
         User user = new User();
         when(authorizationService.getUser(Long.valueOf(userId))).thenReturn(Optional.of(user));
@@ -93,7 +101,7 @@ public class StoriesServiceTests {
         List<StoryDto> receivedStories = storiesService.getStories(userId);
 
         verify(storyRepository).findByuserId(Long.valueOf(userId));
-        assertEquals(receivedStories.get(0).getSummary(), story.getSummary());
+        assertEquals(receivedStories.get(0), mappedStory);
     }
 
 
@@ -101,10 +109,11 @@ public class StoriesServiceTests {
     public void shouldGetAllStoriesIfUserIsAdmin() {
 
         Story story = new Story();
-        story.setSummary("summary");
         String userId = "1";
 
         List<Story> stories = Collections.singletonList(story);
+        StoryDto mappedStory = new StoryDto();
+        when(modelMapperService.map(story)).thenReturn(mappedStory);
         when(storyRepository.findAll()).thenReturn(stories);
         User user = new User();
         user.setRole(Role.ADMIN);
@@ -113,7 +122,7 @@ public class StoriesServiceTests {
         List<StoryDto> receivedStories = storiesService.getStories(userId);
 
         verify(storyRepository).findAll();
-        assertEquals(receivedStories.get(0).getSummary(), story.getSummary());
+        assertEquals(receivedStories.get(0), mappedStory);
     }
 
     @Test(expected = UnauthorizedException.class)

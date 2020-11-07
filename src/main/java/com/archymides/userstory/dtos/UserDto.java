@@ -25,11 +25,5 @@ public class UserDto {
     private String password;
     private Role role;
 
-    public UserDto(User user) {
-        this.firstName = user.getFirstName();
-        this.lastName = user.getLastName();
-        this.email = user.getEmail();
-        this.role = user.getRole();
-    }
 }
 
