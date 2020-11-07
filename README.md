@@ -11,10 +11,17 @@
 - If intellij is used install lombok, enable lombok annotation processing
     Preferences -> lombok plugin -> enable lombok plugin
 
+## Swagger Api docs
+
+- http://localhost:8080/v2/api-docs
 
 ## Validations
 
-- Email field and other validation is done using javax.validation framework
+- Request fields validations are done using javax.validation framework
+
+## Database migrations
+
+- Flyway is used to manage db migration. It runs automatically on app startup
 
 
 ## Dependency Injection
