@@ -1,6 +1,6 @@
 package com.archymides.userstory.dtos;
 import com.archymides.userstory.entities.User;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.archymides.userstory.enums.Role;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

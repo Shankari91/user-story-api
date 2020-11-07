@@ -10,6 +10,8 @@ import com.archymides.userstory.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service("AuthorizationService")
 public class AuthorizationService {
 
@@ -22,6 +24,10 @@ public class AuthorizationService {
     public void registerUser(UserDto userDto) {
         User user = new User(userDto);
         userRepository.save(user);
+    }
+
+    public Optional<User> getUser(Long id) {
+        return userRepository.findById(id);
     }
 
     public UserLoginDto handleLogin(LoginDto loginDto) {

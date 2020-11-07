@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 
-@Service("jwtService")
+@Service("JwtService")
 public
 class JwtService {
 

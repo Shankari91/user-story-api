@@ -1,9 +1,8 @@
 package com.archymides.userstory.entities;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
-import com.archymides.userstory.dtos.Role;
+import com.archymides.userstory.enums.Role;
 import com.archymides.userstory.dtos.UserDto;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
