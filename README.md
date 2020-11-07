@@ -7,11 +7,13 @@
 
 ## Prerequistes
 - Install mysql and  run the following command(table and db name are case sensitive in mysql)
+```
   create database user_stories;
-- If intellij is used install lombok, enable lombok annotation processing
+  ```
+- If intellij is used install lombok and enable lombok annotation processing
     Preferences -> lombok plugin -> enable lombok plugin
-  Copy application.properties.cfg to application.properties and set the properties
-  Make sure jwt.secret is a very long string of more than 256 bytes.
+- Copy application.properties.cfg to application.properties and set the properties
+- Make sure jwt.secret is a very long string of more than 256 bytes.
 
 ## Swagger Api docs
 
@@ -24,7 +26,7 @@
 
 ## Database migrations
 
-- Flyway is used to manage db migration. It runs automatically on app startup
+- Flyway is used to manage db migrations. It runs automatically on app startup
 
 
 ## Dependency Injection
